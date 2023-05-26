@@ -14,6 +14,7 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.50"
     }
+    //for managing repo , users, organizations
     /* github = {
       source  = "integrations/github"
       version = "~> 4.0"
@@ -95,12 +96,13 @@ resource "azurerm_app_service_source_control" "source_control" {
   repo_url               = "https://github.com/antoine4790/azure-web-app"
   branch                 = "master"
   use_manual_integration = true
+
 }
 
-resource "azurerm_source_control_token" "github_token" {
+/* resource "azurerm_source_control_token" "github_token" {
   type  = "GitHub"
   token = "ghaot-YgP7GawK4MiQrW2B"
-}
+} */
 
 /* resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
