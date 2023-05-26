@@ -95,9 +95,10 @@ resource "azurerm_windows_web_app" "web_app" {
 
 resource "azurerm_app_service_source_control" "source_control" {
   app_id                 = azurerm_windows_web_app.web_app.id
-  repo_url               = "https://github.com/antoine4790/azure-web-app"
-  branch                 = "master"
+  repo_url               = "https://github.com/nurseplanning/NursePlanning"
+  branch                 = "master_working"
   use_manual_integration = true
+  use_mercurial          = false
   depends_on             = [azurerm_windows_web_app.web_app]
 }
 
