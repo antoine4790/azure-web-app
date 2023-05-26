@@ -34,6 +34,7 @@ provider "azurerm" {
   token = "<personal-access-token>"
   owner = "antoine4790"
 } */
+
 #utilisation d'un subnet deja créé sur Azure
 /* data "azurerm_subnet" "subnet1" {
   name                 = "Subnet1"
@@ -72,7 +73,7 @@ resource "azurerm_service_plan" "app_service_plan" {
   location            = azurerm_resource_group.rg.location
   sku_name            = "P1v2"
   os_type             = "Windows"
-
+  depends_on          = [azurerm_resource_group.rg]
 }
 
 resource "azurerm_windows_web_app" "web_app" {
@@ -81,7 +82,6 @@ resource "azurerm_windows_web_app" "web_app" {
   location            = azurerm_service_plan.app_service_plan.location
   service_plan_id     = azurerm_service_plan.app_service_plan.id
 
-
   site_config {
 
     application_stack {
@@ -89,6 +89,8 @@ resource "azurerm_windows_web_app" "web_app" {
       dotnet_version = "v7.0"
     }
   }
+  depends_on = [azurerm_service_plan.app_service_plan,
+  azurerm_resource_group.rg]
 }
 
 resource "azurerm_app_service_source_control" "source_control" {
@@ -96,9 +98,10 @@ resource "azurerm_app_service_source_control" "source_control" {
   repo_url               = "https://github.com/antoine4790/azure-web-app"
   branch                 = "master"
   use_manual_integration = true
-
+  depends_on             = [azurerm_windows_web_app.web_app]
 }
 
+//doublon par rapport la creation via github.com du token pour Tf
 /* resource "azurerm_source_control_token" "github_token" {
   type  = "GitHub"
   token = "ghaot-YgP7GawK4MiQrW2B"
