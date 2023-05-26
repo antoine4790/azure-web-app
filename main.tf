@@ -1,13 +1,13 @@
 # Configure the Azure provider
 terraform {
   backend "remote" {
-         # The name of your Terraform Cloud organization.
-         organization = "solution-optimum"
+    # The name of your Terraform Cloud organization.
+    organization = "solution-optimum"
 
-         # The name of the Terraform Cloud workspace to store Terraform state files in.
-         workspaces {
-           name = "azure-web-app"
-         }
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
+    workspaces {
+      name = "azure-web-app"
+    }
   }
   required_providers {
     azurerm = {
