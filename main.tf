@@ -1,11 +1,6 @@
 # Configure the Azure provider
 terraform {
-  cloud {
-    organization = "solution-optimum"
-    workspaces {
-      name = "learn-terraform-youtube-azure-web-app"
-    }
-  }
+  
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
