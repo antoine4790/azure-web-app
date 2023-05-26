@@ -8,6 +8,7 @@ terraform {
          workspaces {
            name = "azure-web-app"
          }
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
