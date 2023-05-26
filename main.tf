@@ -108,6 +108,23 @@ resource "azurerm_app_service_source_control" "source_control" {
   token = "ghaot-YgP7GawK4MiQrW2B"
 } */
 
+resource "azurerm_sql_server" "sql_server" {
+  name                         = "sql-server20230525"
+  resource_group_name          = azurerm_resource_group.rg.name
+  location                     = azurerm_resource_group.rg.location
+  version                      = "12.0"
+  administrator_login          = "sqladmin"
+  administrator_login_password = var.vm_password
+
+}
+
+resource "azurerm_sql_database" "sql-database" {
+  name                = "WebNursePlanningBD"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  server_name         = azurerm_sql_server.sql_server.name
+  depends_on          = [azurerm_sql_server.sql_server]
+}
 /* resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
   resource_group_name      = azurerm_resource_group.rg.name
