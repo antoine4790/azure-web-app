@@ -125,6 +125,18 @@ resource "azurerm_sql_database" "sql-database" {
   server_name         = azurerm_sql_server.sql_server.name
   depends_on          = [azurerm_sql_server.sql_server]
 }
+
+resource "azurerm_sql_firewall_rule" "app_server_firewall_rule" {
+  name                = "app-server-firewall-rule"
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name         = azurerm_sql_server.sql_server.name
+  start_ip_address    = "86.210.22.148"
+  end_ip_address      = "86.210.22.148"
+  depends_on = [
+    azurerm_sql_server.sql_server,
+    azurerm_resource_group.rg
+  ]
+}
 /* resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
   resource_group_name      = azurerm_resource_group.rg.name
