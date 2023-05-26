@@ -31,7 +31,7 @@ provider "azurerm" {
 }
 /* provider "github" {
   token = "<personal-access-token>"
-  owner = "<organization>"
+  owner = "antoine4790"
 } */
 #utilisation d'un subnet deja créé sur Azure
 /* data "azurerm_subnet" "subnet1" {
@@ -92,14 +92,14 @@ resource "azurerm_windows_web_app" "web_app" {
 
 resource "azurerm_app_service_source_control" "source_control" {
   app_id                 = azurerm_windows_web_app.web_app.id
-  repo_url               = "https://github.com/nurseplanning/NursePlanning"
-  branch                 = "master_working"
+  repo_url               = "https://github.com/antoine4790/azure-web-app"
+  branch                 = "master"
   use_manual_integration = true
 }
 
 resource "azurerm_source_control_token" "github_token" {
   type  = "GitHub"
-  token = "ot-aYyhF9DBLokLmsga"
+  token = "ghaot-YgP7GawK4MiQrW2B"
 }
 
 /* resource "azurerm_storage_account" "storage_account" {
