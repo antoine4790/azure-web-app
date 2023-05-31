@@ -151,7 +151,10 @@ resource "azurerm_sql_firewall_rule" "app_server_firewall_rule_azure_services" {
 }
 
 resource "null_resource" "init_sql_script" {
-
+  provisioner "local-exec" {
+    command = "sqlcmd -S sql-server20230525.database.windows.net -U sqladmin -P Azure@123 -d app-db -i init.sql"
+  }
+  depends_on = [ azurerm_sql_server.sql_server ]
 }
 /* resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
