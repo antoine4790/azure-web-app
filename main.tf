@@ -71,7 +71,7 @@ resource "azurerm_service_plan" "app_service_plan" {
   name                = "app-service-plan"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  sku_name            = "P1v2"
+  sku_name            = "B1"
   os_type             = "Windows"
   depends_on          = [azurerm_resource_group.rg]
 }
@@ -136,6 +136,22 @@ resource "azurerm_sql_firewall_rule" "app_server_firewall_rule" {
     azurerm_sql_server.sql_server,
     azurerm_resource_group.rg
   ]
+}
+//allow azure services to acces sql server and sql db
+resource "azurerm_sql_firewall_rule" "app_server_firewall_rule_azure_services" {
+  name                = "app-server-firewall-rule-azure-services"
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name         = azurerm_sql_server.sql_server.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+  depends_on = [
+    azurerm_sql_server.sql_server,
+    azurerm_resource_group.rg
+  ]
+}
+
+resource "null_resource" "init_sql_script" {
+
 }
 /* resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
